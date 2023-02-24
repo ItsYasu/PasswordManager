@@ -6,7 +6,7 @@ import java.sql.*;
         private static Connection connection;
         private static String url = "jdbc:mysql://localhost:3306/passwordmanager?serverTimezone=UTC";
         private static String username = "root";
-        private static String password = "0143";
+        private static String password = "INSERTPASSWORD";
         private static Statement statement;
     public static Connection getConnection() {
         if (connection == null) {
