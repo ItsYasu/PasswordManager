@@ -15,21 +15,24 @@ public class PasswordManager {
     private int id_user;
     private Date fecha_creacion;
     private Date f_ult_modificacion;
-    public PasswordManager(){
+
+    public PasswordManager() {
 
     }
+
     /*
     @param websiteurl -> set the website URL that you want to search your credentials
     @param username -> set your application username
     This method returns a username and password of a desired website.
      */
-    public void getPasswordbyWebsiteUrl(String websiteurl, String username) throws SQLException{
+    public void getPasswordbyWebsiteUrl(String websiteurl, String username) throws SQLException {
         Connection connection = DatabaseManager.getConnection(); //Connection to the database
-        PreparedStatement statement = connection.prepareStatement("SELECT username_website, password_website from passwords p, users u where p.website_url = ? and u.id_user = p.id_user and u.username = ?" ); //SQL Query
-        statement.setString(1,websiteurl ); //Setting the position of the mark "?" in the query
-        statement.setString(2,username);
+        PreparedStatement statement = connection.prepareStatement("SELECT username_website, password_website from passwords p, users u where p.website_url = ? and u.id_user = p.id_user and u.username = ?"); //SQL Query
+        statement.setString(1, websiteurl); //Setting the position of the mark "?" in the query
+        statement.setString(2, username);
         ResultSet resultSet = statement.executeQuery(); //Executing query
-        while(resultSet.next()){ //Loop to check if there's more than one password saved for X website
+
+        while (resultSet.next()) { //Loop to check if there's more than one password saved for X website
             this.username_website = resultSet.getString("username_website");
             this.password_website = resultSet.getString("password_website");
 
@@ -40,13 +43,15 @@ public class PasswordManager {
         statement.close();
         connection.close();
 
+
     }
+
     public void getallDatabyWebsiteName(String nombre) throws SQLException {
         Connection connection = DatabaseManager.getConnection(); //Obtenemos conexión a través del metodo getConnection()
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM passwords WHERE website_name = ?");//Se prepara sentencia SQL. Sustituimos ? por variable nombre.
         statement.setString(1, nombre); // establece el valor del marcador de posición en el ID de la contraseña especificado como parámetro del método.
         ResultSet resultSet = statement.executeQuery(); //ejecutamos consulta
-        while(resultSet.next()){
+        while (resultSet.next()) {
             this.id_password = resultSet.getInt("id_password");
             this.id_user = resultSet.getInt("id_user");
             this.website_url = resultSet.getString("website_url");
@@ -59,13 +64,13 @@ public class PasswordManager {
 
             StringBuilder sb = new StringBuilder();
             sb.append("ID_Password: " + this.id_password + " ");
-            sb.append("ID_User: " + this.id_user + " " );
+            sb.append("ID_User: " + this.id_user + " ");
             sb.append("Website URL: " + this.website_url + " ");
             sb.append("Website Name: " + this.website_name + " ");
             sb.append("Username on website: " + this.username_website + " ");
             sb.append("Password on website: " + this.password_website + " ");
             sb.append("Email on website: " + this.email + " ");
-            sb.append("Fecha de creación: " +this.fecha_creacion + " ");
+            sb.append("Fecha de creación: " + this.fecha_creacion + " ");
             sb.append("Fecha Última Modificación: " + this.f_ult_modificacion + " ");
             System.out.println(sb.toString());
         }
