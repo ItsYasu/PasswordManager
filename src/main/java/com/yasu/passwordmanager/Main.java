@@ -13,7 +13,7 @@ public class Main {
         String weburl = sc.next();
         System.out.println("Type your username");
         String username = sc.next();
-        passwordManager.getPasswordbyWebsiteUrl(weburl, username);
+        passwordManager.getCredentialsByWebsiteUrl(weburl, username);
 
     }
 }

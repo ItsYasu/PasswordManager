@@ -25,7 +25,7 @@ public class PasswordManager {
     @param username -> set your application username
     This method returns a username and password of a desired website.
      */
-    public void getPasswordbyWebsiteUrl(String websiteurl, String username) throws SQLException {
+    public void getCredentialsByWebsiteUrl(String websiteurl, String username) throws SQLException {
         Connection connection = DatabaseManager.getConnection(); //Connection to the database
         PreparedStatement statement = connection.prepareStatement("SELECT username_website, password_website from passwords p, users u where p.website_url = ? and u.id_user = p.id_user and u.username = ?"); //SQL Query
         statement.setString(1, websiteurl); //Setting the position of the mark "?" in the query
